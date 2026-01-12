@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: dexsent_task1
+    relative_path: urdf/crx10ia_robotiq.urdf
+  srdf:
+    relative_path: config/crx10ia_robotiq.srdf
+  package_settings:
+    author_name: Rudransh Mishra
+    author_email: rudranshmishra1999@gmail.com
+    generated_timestamp: 1768240146

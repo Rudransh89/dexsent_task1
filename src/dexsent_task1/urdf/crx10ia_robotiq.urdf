@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<robot name="crx10ia_robotiq">
+  
+  <material name="fanuc_white"><color rgba="0.95 0.95 0.95 1"/></material>
+  <material name="fanuc_black"><color rgba="0.15 0.15 0.15 1"/></material>
+  <material name="fanuc_green"><color rgba="0.0 0.6 0.2 1"/></material>
+  <material name="silver"><color rgba="0.75 0.75 0.75 1"/></material>
+
+  <link name="world"/>
+
+  <joint name="base_joint" type="fixed"><parent link="world"/><child link="base_link"/></joint>
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.08"/><geometry><cylinder radius="0.09" length="0.16"/></geometry><material name="fanuc_black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.08"/><geometry><cylinder radius="0.09" length="0.16"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_1" type="revolute">
+    <origin xyz="0 0 0.16" rpy="0 0 0"/><parent link="base_link"/><child link="link_1"/>
+    <axis xyz="0 0 1"/><limit lower="-3.14" upper="3.14" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="link_1">
+    <visual>
+      <origin xyz="0 0 0.1"/><geometry><cylinder radius="0.08" length="0.2"/></geometry><material name="fanuc_white"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.1"/><geometry><cylinder radius="0.08" length="0.2"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_2" type="revolute">
+    <origin xyz="0 0 0.2" rpy="0 0 0"/><parent link="link_1"/><child link="link_2"/>
+    <axis xyz="0 1 0"/><limit lower="-3.14" upper="3.14" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="link_2">
+    <visual>
+      <origin xyz="0 0 0.35"/><geometry><cylinder radius="0.07" length="0.7"/></geometry><material name="fanuc_white"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.35"/><geometry><cylinder radius="0.07" length="0.7"/></geometry>
+    </collision>
+    <visual>
+        <origin xyz="0 0 0.65"/><geometry><cylinder radius="0.071" length="0.05"/></geometry><material name="fanuc_green"/>
+    </visual>
+  </link>
+
+  <joint name="joint_3" type="revolute">
+    <origin xyz="0 0 0.7" rpy="0 0 0"/><parent link="link_2"/><child link="link_3"/>
+    <axis xyz="0 1 0"/><limit lower="-3.14" upper="3.14" effort="100" velocity="2.0"/>
+  </joint>
+  <link name="link_3">
+    <visual>
+      <origin xyz="0.25 0 0" rpy="0 1.57 0"/><geometry><cylinder radius="0.06" length="0.5"/></geometry><material name="fanuc_white"/>
+    </visual>
+    <collision>
+      <origin xyz="0.25 0 0" rpy="0 1.57 0"/><geometry><cylinder radius="0.06" length="0.5"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_4" type="revolute">
+    <origin xyz="0.5 0 0" rpy="0 0 0"/><parent link="link_3"/><child link="link_4"/>
+    <axis xyz="1 0 0"/><limit lower="-3.3" upper="3.3" effort="50" velocity="3.0"/>
+  </joint>
+  <link name="link_4">
+    <visual>
+      <origin xyz="0.05 0 0" rpy="0 1.57 0"/><geometry><cylinder radius="0.05" length="0.1"/></geometry><material name="fanuc_white"/>
+    </visual>
+    <collision>
+      <origin xyz="0.05 0 0" rpy="0 1.57 0"/><geometry><cylinder radius="0.05" length="0.1"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_5" type="revolute">
+    <origin xyz="0.1 0 0" rpy="0 0 0"/><parent link="link_4"/><child link="link_5"/>
+    <axis xyz="0 1 0"/><limit lower="-3.14" upper="3.14" effort="50" velocity="3.0"/>
+  </joint>
+  <link name="link_5">
+    <visual>
+      <origin xyz="0.05 0 0" rpy="0 1.57 0"/><geometry><cylinder radius="0.05" length="0.1"/></geometry><material name="fanuc_white"/>
+    </visual>
+    <collision>
+      <origin xyz="0.05 0 0" rpy="0 1.57 0"/><geometry><cylinder radius="0.05" length="0.1"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_6" type="revolute">
+    <origin xyz="0.1 0 0" rpy="0 0 0"/><parent link="link_5"/><child link="flange"/>
+    <axis xyz="1 0 0"/><limit lower="-3.3" upper="3.3" effort="50" velocity="3.0"/>
+  </joint>
+  <link name="flange">
+    <visual>
+      <origin xyz="0.01 0 0" rpy="0 1.57 0"/><geometry><cylinder radius="0.04" length="0.02"/></geometry><material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="0.01 0 0" rpy="0 1.57 0"/><geometry><cylinder radius="0.04" length="0.02"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="gripper_mount" type="fixed">
+    <parent link="flange"/><child link="robotiq_base"/>
+    <origin xyz="0.02 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="robotiq_base">
+    <visual>
+      <origin xyz="0.04 0 0"/><geometry><box size="0.08 0.08 0.08"/></geometry><material name="fanuc_black"/>
+    </visual>
+    <collision>
+      <origin xyz="0.04 0 0"/><geometry><box size="0.08 0.08 0.08"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="finger_joint" type="prismatic">
+    <parent link="robotiq_base"/><child link="left_finger"/>
+    <origin xyz="0.08 0.02 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/><limit lower="0.0" upper="0.04" effort="20" velocity="0.5"/>
+  </joint>
+  <link name="left_finger">
+    <visual>
+      <origin xyz="0 0 0"/><geometry><box size="0.08 0.01 0.02"/></geometry><material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/><geometry><box size="0.08 0.01 0.02"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="right_finger_joint" type="fixed">
+    <parent link="robotiq_base"/><child link="right_finger"/>
+    <origin xyz="0.08 -0.02 0" rpy="0 0 0"/>
+  </joint>
+  <link name="right_finger">
+    <visual>
+      <origin xyz="0 0 0"/><geometry><box size="0.08 0.01 0.02"/></geometry><material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/><geometry><box size="0.08 0.01 0.02"/></geometry>
+    </collision>
+  </link>
+
+</robot>
