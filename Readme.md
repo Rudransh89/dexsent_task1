@@ -141,8 +141,5 @@ This will start:
 
 This project is provided for technical evaluation purposes. All rights reserved by the author.
 
----
 
-**Author**: [Your Name]  
-**Contact**: [Your Email]  
-**Date**: January 2026
+
